@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kedai Nusantara - Cita Rasa Tradisional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3C2414',
+                        secondary: '#6F4E37',
+                        accent: '#8B4513',
+                        light: '#D2B48C'
+                    }
+                }
+            }
+        }
+    </script>
+        <style>
+            .glass-effect {
+                backdrop-filter: blur(10px);
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            }
+            
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+            
+
+            .custom-shadow {
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            }
+
+            /* menu section */
+            .filter-btn {
+                color: #6B7280;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                font-weight: 500;
+            }
+
+            .filter-btn.active {
+                color: white;
+                background: #3C2414;
+            }
+
+            .filter-btn:hover:not(.active) {
+                color: #3C2414;
+                background: #F3F4F6;
+            }
+
+            .menu-item {
+                transition: all 0.3s ease;
+            }
+
+            .menu-item.hidden {
+                display: none;
+            }
+
+            .menu-item.show {
+                animation: fadeInUp 0.5s ease forwards;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Informasi Kedai */
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .map-container {
+                position: relative;
+                height: 450px;
+            }
+            .info-card {
+                background: linear-gradient(135deg, #3C2414 0%, #6F4E37 50%, #8B4513 100%);    
+            }
+            .contact-item {
+                transition: all 0.3s ease;     
+            }
+            .contact-item:hover {
+                transform: translateX(10px);
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 12px;
+            }
+        </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header & Navbar -->
+    <header class="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo + Nama Kedai -->
+                <div class="text-2xl font-bold text-primary flex items-center animate-fade-in-down">
+                    <img src="logo.jpg" alt="Logo Kedai Nusantara" class="h-10 w-10 rounded-full mr-3">
+                    Kedai Kopi Tangkis
+                </div>
+    
+                <!-- Navigasi Desktop -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">About</a>
+                    <a href="#menu" class="text-gray-700 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">Menu</a>
+                    <a href="#location" class="text-gray-700 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">Lokasi</a>
+                </div>
+    
+                <!-- Tombol Mobile Menu -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-primary transition-colors p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+    
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 animate-fade-in-down">
+                <a href="#home" class="block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all">Home</a>
+                <a href="#about" class="block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all">About</a>
+                <a href="#menu" class="block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all">Menu</a>
+                <a href="#location" class="block py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all">Lokasi</a>
+            </div>
+        </nav>
+    </header>
+    
+
+    <!-- Hero Section with Carousel -->
+    <section id="home" class="relative h-screen overflow-hidden">
+        <div id="carousel" class="flex transition-transform duration-700 ease-in-out h-full">
+            <!-- Slide 1 -->
+            <div class="w-full h-full flex-shrink-0 relative">
+                <img src="foto1.jpeg" 
+                     alt="Interior Kedai" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60">
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center text-white max-w-4xl px-4">
+                            <div class="animate-fade-in-up">
+                                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-shadow gradient-text">
+                                    Kedai Kopi Tangkis
+                                </h1>
+                                <div class="h-1 w-24 bg-gold mx-auto mb-6 animate-pulse-slow"></div>
+                                <p class="text-2xl md:text-3xl mb-4 text-shadow font-light">
+                                    "Ngopi santai, cerita ngalir"
+                                </p>
+                                <p class="text-lg md:text-xl text-gray-200 mb-8">
+                                    Dari warung kecil, kami suguhkan rasa dan cerita
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="w-full h-full flex-shrink-0 relative">
+                <img src="foto2.jpg" 
+                     alt="Menu Makanan" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60">
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center text-white max-w-4xl px-4">
+                            <div class="animate-fade-in-up">
+                                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-shadow">
+                                    Menu <span class="gradient-text">Tradisional</span>
+                                </h1>
+                                <div class="h-1 w-24 bg-gold mx-auto mb-6 animate-pulse-slow"></div>
+                                <p class="text-2xl md:text-3xl mb-4 text-shadow font-light">
+                                    "Menu Khas Warkop"
+                                </p>
+                                <p class="text-lg md:text-xl text-gray-200 mb-8">
+                                    Menemani obrolan hangat lewat secangkir kopi tradisional
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="w-full h-full flex-shrink-0 relative">
+                <img src="foto3.jpg" 
+                     alt="Suasana Kedai" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60">
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center text-white max-w-4xl px-4">
+                            <div class="animate-fade-in-up">
+                                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-shadow">
+                                    Suasana <span class="gradient-text">Hangat</span>
+                                </h1>
+                                <div class="h-1 w-24 bg-gold mx-auto mb-6 animate-pulse-slow"></div>
+                                <p class="text-2xl md:text-3xl mb-4 text-shadow font-light">
+                                    "Tempat Berkumpul Bersama Keluarga dan Teman"
+                                </p>
+                                <p class="text-lg md:text-xl text-gray-200 mb-8">
+                                    tempat nyaman seperti di rumah sendiri
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Carousel Controls -->
+        <!-- Tombol Prev -->
+        <button id="prev"
+            class="absolute left-2 md:left-6 top-[45%] md:top-1/2 transform -translate-y-[45%] md:-translate-y-1/2 z-10 
+                bg-black/30 md:bg-transparent hover:bg-white/20 
+                rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110">
+            <svg class="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- Tombol Next -->
+        <button id="next"
+            class="absolute right-2 md:right-6 top-[45%] md:top-1/2 transform -translate-y-[45%] md:-translate-y-1/2 z-10 
+                bg-black/30 md:bg-transparent hover:bg-white/20 
+                rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110">
+            <svg class="w-4 h-4 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+
+
+        
+        <!-- Carousel Indicators -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <button class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="0"></button>
+            <button class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="1"></button>
+            <button class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300" data-slide="2"></button>
+        </div>
+        
+    </section>
+    
+    <!-- Enhanced About Section -->
+    <section id="about" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary mb-6">
+                    Tentang <span class="gradient-text">Kedai Kopi Tangkis</span>
+                </h2>
+                <div class="h-1 w-24 bg-gold mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+                    Kedai Tangkis adalah warung kopi di Kabupaten Kuningan, Jawa Barat, yang sejak 2019 menyajikan kopi, teh, jus, serta menu makanan seperti bakso dan mie ayam dengan suasana nyaman dan harga terjangkau. Menjadi tempat favorit anak muda dan keluarga, kami terus berinovasi dalam layanan dan pemasaran digital untuk meningkatkan kualitas dan daya saing bisnis secara berkelanjutan.
+                </p>
+            </div>
+
+            <!-- Enhanced Founder Section -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-16 hover-lift custom-shadow animate-fade-in-up">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="relative">
+                        <!-- <img src="assets/profile.jpg" alt="Foto Profil" class="w-16 h-16 rounded-full"> -->
+                        <img src="owner.jpg" 
+                            alt="Budi Santoso" class="w-64 h-64 rounded-2xl object-cover shadow-lg">
+                    </div>
+                    <div class="text-center lg:text-left flex-1">
+                        <h3 class="text-3xl font-bold text-primary mb-3">Lili Lindana</h3>
+                        <p class="text-secondary font-semibold mb-4 text-xl">Founder & Owner</p>
+                        <div class="h-1 w-16 bg-gold mb-6 mx-auto lg:mx-0"></div>
+                        <p class="text-gray-600 leading-relaxed text-lg">
+                            Berawal dari dagang keliling, kini sukses mengelola warkop bernuansa cafe. Perjalanan penuh kerja keras dan ketekunan ini membuktikan bahwa mimpi bisa diraih, asal konsisten dan terus berinovasi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Team Section -->
+            <div class="animate-fade-in-up">
+                <h3 class="text-3xl font-bold text-primary text-center mb-12">
+                    Tim <span class="gradient-text">Kedai Kopi Tangkis</span>
+                </h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover-lift custom-shadow group">
+                        <div class="relative mb-6">
+                            <img src="teh ila.jpg" 
+                                alt="Sari Anggraini" class="w-24 h-24 rounded-full mx-auto object-cover shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <h4 class="text-xl font-bold text-primary mb-2">Ila</h4>
+                        <p class="text-secondary font-medium">Pelayan</p>
+                        <div class="h-1 w-12 bg-gold mx-auto mt-4"></div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover-lift custom-shadow group">
+                        <div class="relative mb-6">
+                            <img src="a galih.jpg" 
+                                alt="Dedi Permana" class="w-24 h-24 rounded-full mx-auto object-cover shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <h4 class="text-xl font-bold text-primary mb-2">Galih</h4>
+                        <p class="text-secondary font-medium">Pelayanan</p>
+                        <div class="h-1 w-12 bg-gold mx-auto mt-4"></div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover-lift custom-shadow group">
+                        <div class="relative mb-6">
+                            <img src="employ1.jpg" 
+                                alt="Laila Maharani" class="w-24 h-24 rounded-full mx-auto object-cover shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        </div>
+                        <h4 class="text-xl font-bold text-primary mb-2">Nunung</h4>
+                        <p class="text-secondary font-medium">Pelayanan</p>
+                        <div class="h-1 w-12 bg-gold mx-auto mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Menu Section with Filter -->
+    <section id="menu" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary text-center mb-8">Menu Unggulan</h2>
+            
+    <!-- Filter Buttons -->
+    <div class="flex justify-center mb-12">
+        <div class="bg-white rounded-full p-2 shadow-lg flex flex-wrap justify-center gap-2">
+            <button class="filter-btn active min-w-[100px] px-4 md:px-6 py-2 md:py-3 rounded-full transition-all duration-300 mx-1" data-filter="all">
+                Semua
+            </button>
+            <button class="filter-btn min-w-[100px] px-4 md:px-6 py-2 md:py-3 rounded-full transition-all duration-300 mx-1" data-filter="makanan">
+                Makanan
+            </button>
+            <button class="filter-btn min-w-[100px] px-4 md:px-6 py-2 md:py-3 rounded-full transition-all duration-300 mx-1" data-filter="minuman">
+                Minuman
+            </button>
+        </div>
+    </div>
+
+            
+            <!-- Menu Items Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-container">
+                <!-- Makanan Items -->
+                <div class="menu-item bg-white rounded-lg shadow-md p-6 hover-lift" data-category="makanan">
+                    <img src="otakotak.jpg" alt="Gudeg Jogja" class="w-full h-40 object-cover rounded-md mb-4">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">Otak Otak</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Gurih, pedas, bikin nagih!</p>
+                        </div>
+                        <span class="text-secondary font-bold text-xl ml-4">14K</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-medium">Best Seller</span>
+                        <div class="flex text-yellow-400">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="menu-item bg-white rounded-lg shadow-md p-6 hover-lift" data-category="makanan">
+                    <img src="nasigoreng.jpg" alt="Rendang Daging" class="w-full h-40 object-cover rounded-md mb-4">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">Nasi Goreng</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Wangi, hangat, penuh rasa!</p>
+                        </div>
+                        <span class="text-secondary font-bold text-xl ml-4">14K</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-medium">Best Seller</span>
+                        <div class="flex text-yellow-400">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="menu-item bg-white rounded-lg shadow-md p-6 hover-lift" data-category="makanan">
+                    <img src="mieayam.jpg" alt="Soto Ayam Lamongan" class="w-full h-40 object-cover rounded-md mb-4">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">Mie Ayam</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Kenyalnya mie, gurihnya ayam!</p>
+                        </div>
+                        <span class="text-secondary font-bold text-xl ml-4">12K</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-medium">Best Seller</span>
+                        <div class="flex text-yellow-400">
+                            <span>★★★★☆</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Minuman Items -->
+                <div class="menu-item bg-white rounded-lg shadow-md p-6 hover-lift" data-category="minuman">
+                    <img src="dalgona.jpg" alt="Es Teh Manis" class="w-full h-40 object-cover rounded-md mb-4">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">Dalgona coffee</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Kopi kekinian, lembut dan creamy!</p>
+                        </div>
+                        <span class="text-secondary font-bold text-xl ml-4">15K</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-medium">Best Seller</span>
+                        <div class="flex text-yellow-400">
+                            <span>★★★★☆</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="menu-item bg-white rounded-lg shadow-md p-6 hover-lift" data-category="minuman">
+                    <img src="gulaaren.jpg" alt="Jus Alpukat" class="w-full h-40 object-cover rounded-md mb-4">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">Susu Gula Aren</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Manis alami, segarnya bikin jatuh hati</p>
+                        </div>
+                        <span class="text-secondary font-bold text-xl ml-4">15K</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-medium">Best Seller</span>
+                        <div class="flex text-yellow-400">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="menu-item bg-white rounded-lg shadow-md p-6 hover-lift" data-category="minuman">
+                    <img src="matcha.jpg" alt="Kopi Tubruk" class="w-full h-40 object-cover rounded-md mb-4">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">Matcha Latte</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Aroma teh hijau, lembut menenangkan.</p>
+                        </div>
+                        <span class="text-secondary font-bold text-xl ml-4">15K</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-medium">Best Seller</span>
+                        <div class="flex text-yellow-400">
+                            <span>★★★★☆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+    <!-- Map Section -->
+    <section class="py-16 bg-white" id="location">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary text-center mb-12">Lokasi Kedai</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl hover-lift overflow-hidden">
+                    <div class="bg-gradient-to-r from-primary to-secondary text-white p-6 text-center">
+                        <h3 class="text-2xl font-bold mb-2">Kedai Kopi Tangkis</h3>
+                        <p class="text-light opacity-90">Temukan lokasi dan hubungi kami dengan mudah</p>
+                    </div>
+
+                    <div class="p-8">
+                        <div class="grid lg:grid-cols-3 gap-8">
+
+                            <!-- Store Information -->
+                            <div class="lg:col-span-1">
+                                <div class="info-card text-white p-6 rounded-xl shadow-lg h-full">
+                                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                                        <i class="fas fa-store mr-3"></i>
+                                        Informasi Kedai
+                                    </h4>
+
+                                    <div class="space-y-4">
+                                        <div class="contact-item p-3 -m-3">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-map-marker-alt mt-1 mr-3 text-light"></i>
+                                                <div>
+                                                    <p class="font-semibold mb-1">Alamat</p>
+                                                    <p class="text-sm opacity-90">Jl. Pejambon-Sagara Hiang<br>Kuningan Jawa Barat</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-item p-3 -m-3">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-clock mt-1 mr-3 text-light"></i>
+                                                <div>
+                                                    <p class="font-semibold mb-1">Jam Operasional</p>
+                                                    <p class="text-sm opacity-90">
+                                                        Senin - Jumat: 09:00 - 22:00<br>
+                                                        Sabtu - Minggu: 09:00 - 24:00
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-item p-3 -m-3">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-phone mt-1 mr-3 text-light"></i>
+                                                <div>
+                                                    <p class="font-semibold mb-1">Telepon</p>
+                                                    <p class="text-sm opacity-90">+62 813-1210-5978</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-item p-3 -m-3">
+                                            <div class="flex items-start">
+                                                <i class="fab fa-whatsapp mt-1 mr-3 text-light"></i>
+                                                <div>
+                                                    <p class="font-semibold mb-1">WhatsApp</p>
+                                                    <p class="text-sm opacity-90">+62 813-1210-5978</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--
+                                        <div class="contact-item p-3 -m-3">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-envelope mt-1 mr-3 text-light"></i>
+                                                <div>
+                                                    <p class="font-semibold mb-1">Email</p>
+                                                    <p class="text-sm opacity-90">info@kedainusantara.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-item p-3 -m-3">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-car mt-1 mr-3 text-light"></i>
+                                                <div>
+                                                    <p class="font-semibold mb-1">Parkir</p>
+                                                    <p class="text-sm opacity-90">Tersedia parkir motor & mobil</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        -->
+
+                                    </div>
+
+                                    <!--
+                                    <div class="mt-6 pt-6 border-t border-white border-opacity-20">
+                                        <a href="https://wa.me/6281234567890" target="_blank" 
+                                        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-colors">
+                                            <i class="fab fa-whatsapp mr-2"></i>
+                                            Chat WhatsApp
+                                        </a>
+                                    </div>
+                                    -->
+
+                                </div>
+                            </div>
+
+                            <!-- Map -->
+                            <div class="lg:col-span-2">
+                                <div class="map-container rounded-xl overflow-hidden shadow-lg">
+                                    <iframe 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.551354766788!2d108.43867130000001!3d-6.944096599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f17ffaae431dd%3A0x42e9388a8536d82!2sKedai%20Kopi%20Tangkis%20(WestView)!5e0!3m2!1sid!2sid!4v1748607377110!5m2!1sid!2sid"                                       
+                                        width="100%" 
+                                        height="450" 
+                                        style="border:0;" 
+                                        allowfullscreen="" 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary text-center mb-12">Pertanyaan Umum</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- FAQ Item -->
+                <div class="faq-item bg-white rounded-lg shadow-md overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-100 transition">
+                        <span class="font-medium text-gray-800">Bagaimana cara memesan produk?</span>
+                        <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 hidden">
+                        <p class="text-gray-600">Anda dapat memesan melalui WhatsApp di +62 813-1210-5978, telepon di +62 813-1210-5978, atau datang langsung ke kedai kami Jl. Pejambon-Sagara Hiang. Tim kami akan membantu proses pemesanan Anda dengan senang hati.</p>
+                    </div>
+                </div>
+
+                <!-- Tambahkan FAQ-item lain sesuai format di atas -->
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold mb-2">Kedai Kopi Tangkis</h3>
+                <p>Ngopi santai, cerita ngalir</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-4">
+                <!-- Ganti dengan link akun media sosial Anda -->
+                <a href="https://facebook.com/kedainusantara" target="_blank" class="hover:text-light transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="https://instagram.com/kedainusantara" target="_blank" class="hover:text-light transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.197-1.559-.748-.948-1.197-2.27-1.197-3.696 0-1.426.449-2.748 1.197-3.696.749-.948 1.9-1.559 3.197-1.559s2.448.611 3.197 1.559c.748.948 1.197 2.27 1.197 3.696 0 1.426-.449 2.748-1.197 3.696-.749.948-1.9 1.559-3.197 1.559zm7.718 0c-1.297 0-2.448-.611-3.197-1.559-.748-.948-1.197-2.27-1.197-3.696 0-1.426.449-2.748 1.197-3.696.749-.948 1.9-1.559 3.197-1.559s2.448.611 3.197 1.559c.748.948 1.197 2.27 1.197 3.696 0 1.426-.449 2.748-1.197 3.696-.749.948-1.9 1.559-3.197 1.559z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/6281234567890" target="_blank" class="hover:text-light transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                </a>
+                <a href="https://tiktok.com/@kedainusantara" target="_blank" class="hover:text-light transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="text-sm">&copy; Kedai Kopi Tangkis. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Carousel functionality
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function showSlide(n) {
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide++;
+            showSlide(currentSlide);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide--;
+            showSlide(currentSlide);
+        });
+
+        // Auto-play carousel
+        setInterval(() => {
+            currentSlide++;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+    // Menu section
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+    
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter menu items
+                menuItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category === filter) {
+                        item.classList.remove('hidden');
+                        item.classList.add('show');
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('show');
+                    }
+                });
+            });
+        });
+    });
+    
+    // FAQ section
+    function toggleFaq(button) {
+        const faqItem = button.closest('.faq-item');
+        const answer = faqItem.querySelector('.faq-answer');
+        const chevron = button.querySelector('.faq-chevron');
+
+        // Tutup semua selain yang diklik
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== faqItem) {
+                item.querySelector('.faq-answer').classList.add('hidden');
+                item.querySelector('.faq-chevron').classList.remove('rotate-180');
+            }
+        });
+
+        // Toggle FAQ yang diklik
+        answer.classList.toggle('hidden');
+        chevron.classList.toggle('rotate-180');
+    }
+    </script>
+</body>
+</html>
+
